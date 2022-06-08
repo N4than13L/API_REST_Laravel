@@ -37,17 +37,16 @@ class JwtAuth{
             );
 
             try {
-
                 // Devolver datos decodificados
                 $jwt = JWT::encode($token, $this->key, 'HS256');
-                $decoded = JWT::decode($this->key, ['HS256']);
+                $decoded = JWT::decode($jwt, $this->key, ['HS256']);
 
             } catch (\UnexpectedValueException $th) {
                 if (is_null($getToken)) {
                     $data = $jwt;
-                    }else{
-                        $data = $decoded;
-                    }
+                }else{
+                    $data = $decoded;
+                }
             }   
 
         }else{
@@ -62,7 +61,8 @@ class JwtAuth{
     }
 
     public function checkToken($jwt, $getIdentity = false){
-        $auth = false;
+        $auth = true;
+        $decoded = false;
 
         try {
             $jwt = str_replace('"', '', $jwt);
