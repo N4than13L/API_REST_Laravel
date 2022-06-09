@@ -10,7 +10,13 @@ use App\Helpers\JwtAuth;
 class PostController extends Controller
 {
     public function __construct(){
-        $this->middleware('api.auth', ['except' => ['index', 'show']]);
+        $this->middleware('api.auth', ['except' => [
+            'index',
+            'show',
+            'getImage',
+            'getPostByCategory',
+            'getPostByUser'
+        ]]);
     }
 
     public function index(){
@@ -205,11 +211,52 @@ class PostController extends Controller
 
             $data = array(
                 'code' => 200,
-                'status' => 'error',
+                'status' => 'success',
                 'image' => $image_name
             ); 
         }
 
         return response()->json($data, $data['code']);
+    }
+
+    public function getImage($filename){
+        // Comprobar si existe el fichero.
+        $isset = \Storage::disk('images')->exists($filename);
+        
+        if ($isset) {
+            // Conseguir la imagen.
+            $file = \Storage::disk('images')->get($filename);
+            
+            // Devolver imagen.
+            return new Response($file, 200);
+
+        }else{
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Imagen no existe.'
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+
+    }
+
+    public function getPostByCategory($id){
+        $posts = Post::where('category_id', $id)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts
+        ], 200);
+    }
+
+    public function getPostByUser($id){
+        $posts = Post::where('user_id', $id)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts
+        ], 200);
     }
 }
