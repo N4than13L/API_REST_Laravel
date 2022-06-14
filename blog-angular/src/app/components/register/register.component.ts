@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./register.component.css'],
   providers: [userServiceProvider]
 })
+
 export class RegisterComponent implements OnInit {
   public title: string
   public user: User
