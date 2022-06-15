@@ -34,29 +34,27 @@ class JwtAuth{
                 'surname' =>$user->surname,
                 'iat' =>time(),
                 'exp' =>time() + ( 7 * 24 * 60 * 60)
-            );
+            );      
+        
+         // Devolver datos decodificados
+         $jwt = JWT::encode($token, $this->key, 'HS256');
+         $decoded = JWT::decode($jwt, $this->key, ['HS256']);
 
-            try {
-                // Devolver datos decodificados
-                $jwt = JWT::encode($token, $this->key, 'HS256');
-                $decoded = JWT::decode($jwt, $this->key, ['HS256']);
-
-            } catch (\UnexpectedValueException $th) {
-                if (is_null($getToken)) {
-                    $data = $jwt;
-                }else{
-                    $data = $decoded;
-                }
-            }   
+        if (is_null($getToken)) {
+            $data = $jwt;
+        }else{
+            $data = $decoded;
+        }
 
         }else{
             $data = array(
-               'status' => 'error',
-               'message' => 'Login Incorecto'
-            );
+            'status' => 'error',
+            'message' => 'Login Incorecto'
+            ); 
+
         }
-        
-        return $data;  
+
+        return $data;
         
     }
 

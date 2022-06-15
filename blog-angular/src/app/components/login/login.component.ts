@@ -12,11 +12,11 @@ import { User } from 'src/app/models/user';
 export class LoginComponent implements OnInit {
   public title: string
   public user: User
-  public status: string = ""
+  public status: string = " "
   public token: any
   public identity: any
 
-  constructor( public _userService: userServiceProvider) {
+  constructor( private _userService: userServiceProvider) {
     this.title = "Identificate"
     this.user = new User(1, '', '', 'ROLE-USER', '', '', '', '')
    }
@@ -27,38 +27,39 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: any){
     this._userService.signup(this.user).subscribe(
+      // obtener token.
       response =>{
-        // token.
-        if(response.status != "error"){
-          this.status = "success"
+        if (response.status != 'error') {
+          this.status = 'success'
           this.token = response
 
-          // objeto del usuario identificado.
-          this._userService.signup(this.user).subscribe(
+          // objeto de usuario identificado. 
+          this._userService.signup(this.user, true).subscribe(
             response =>{
-              // token.
-                this.identity = response 
-                console.log(this.token)
-                console.log(this.identity)
+              this.identity = response
+
+              // persidir usuario en el almacenamiento local.
+              console.log(this.token)
+              console.log(this.identity)
+
+              localStorage.setItem('token', this.token)
+              localStorage.setItem('identity', JSON.stringify(this.identity))
             },
             error =>{
-              this.status = "error"
+              this.status = 'error'
               console.log(<any>error)
             }
           )
 
         }else{
-          this.status = "error"
+          this.status = 'error'
         }
-
       },
       error =>{
-        this.status = "error"
+        this.status = 'error'
         console.log(<any>error)
       }
     )
-
-
   }
 
 }

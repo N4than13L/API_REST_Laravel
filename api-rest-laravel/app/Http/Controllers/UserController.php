@@ -103,6 +103,7 @@ class UserController extends Controller
             
             // Devolver los datos del token.
             $signup = $jwtAuth->signup($params->email, $pwd);
+            
             if (!empty($params->gettoken)){
                 $signup = $jwtAuth->signup($params->email, $pwd, true);
             }

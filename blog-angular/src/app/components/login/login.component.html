@@ -5,7 +5,7 @@
 
     <form class="col-md-5 ml-0 pl-0" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">Email: </label>
             <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required/>
 
             <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
@@ -14,13 +14,15 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Contrasena:</label>
+            <label for="password">Contrasena: </label>
             <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password" required  />
 
             <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
                 La contrasena es requerida
             </small>     
         </div>
+
         <input type="submit" value="registro" class="btn btn-success" [disabled]="loginForm.invalid"/>
+    
     </form>
 </div>

@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
    this.userProvider.register(this.user).subscribe(
       response =>{
         if (response.status == "success"){
-          this.status = response.status 
+          this.status = response.status
         }else{
           this.status = "error"
         }
