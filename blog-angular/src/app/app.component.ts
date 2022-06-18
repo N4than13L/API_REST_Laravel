@@ -14,8 +14,7 @@ export class AppComponent implements OnInit, DoCheck {
   public token: any
 
   constructor(public _userService: userServiceProvider){
-    this.identity = this._userService.getIdentity()
-    this.token = this._userService.getToken()
+    this.loginUser()
   }
 
   ngOnInit() {
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(){
-    
     this.loginUser()
   }
 

@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['inicio']">Inicio <span class="sr-only">(current)</span></a>
@@ -15,17 +15,19 @@
     </ul>
 
   <!--  Para login  -->
-  <div class="navbar-nav navbar-right" *ngIf="!identity" >
-    <li class="nav-item active">
-      <a class="nav-link" [routerLink]="['login']">Login<span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['registro']">Registro</a>
-    </li>   
-  </div>
-
+  <ng-template #loginUser>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/login']">Login<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+      </li>   
+    </ul > 
+  </ng-template>
+  
    <!-- Parte de la conf de usuario -->
-   <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
+   <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name; else loginUser">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{identity.name + ' ' + identity.surname }}
@@ -33,7 +35,8 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="#">crear entrada</a>
         <a class="dropdown-item" href="#">crear categoria</a>
-        <a class="dropdown-item" href="#">Ajustes</a>
+        <a class="dropdown-item" href="#" >Mi perfil</a>
+        <a class="dropdown-item" [routerLink]="['/user/update']">Ajustes</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" [routerLink]="['/logout/1']">cerrar cesion </a>
       </div>
