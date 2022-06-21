@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'logout/:sure', component: LoginComponent},
     {path: 'registro', component: RegisterComponent },
-    {path:'user/update', component: UserEditComponent },
+    {path:'userEdit', component: UserEditComponent },
     {path: '**', component: ErrorComponent}
 ]
 

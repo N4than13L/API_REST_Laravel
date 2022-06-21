@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { userServiceProvider } from 'src/app/service/user.service';
+import { global } from '../../service/global/global';
 
 
 @Component({
@@ -17,11 +18,32 @@ export class UserEditComponent implements OnInit {
   public identity: any
   public status: any 
 
+  public afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png, .jpeg, .gif",
+    maxSize: "50",
+    uploadAPI:  {
+      url: global + "user/upload",
+      method:"POST",
+      headers: {
+     "Authorization" : this._userService.getToken()
+      },
+    },
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: true,
+    fileNameIndex: true,
+    autoUpload: false,
+    attachPinText: "sube tu foto de perfil"
+  }
+
   constructor(private _userService: userServiceProvider) {
     this.title = "Edicion de perfil"
     this.user = new User(1, '', '', 'ROLE-USER', '', '', '', '')
-    this.token = this._userService.getToken()
     this.identity = this._userService.getIdentity()
+    this.token = this._userService.getToken()
+  
 
   this.user = this.user
     this.user = new User(
@@ -39,16 +61,38 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   onSubmit(form: any){
     this._userService.update(this.token, this.user).subscribe(
         response => {
-            if(response && response.status){
+            if(response.status == 'success'){
               this.status = 'success'
+
+              if(response.changes.name){
+                this.user.name = response.changes.name
+              }
+
+              if(response.changes.surname){
+                this.user.surname = response.changes.surname
+              }
+
+              if(response.changes.email){
+                this.user.email = response.changes.email
+              }
+
+              if(response.changes.description){
+                this.user.description = response.changes.description
+              }
+
+              if(response.changes.image){
+                this.user.image = response.changes.image
+              }
+
               console.log(response)
 
               this.identity = this.user
               localStorage.setItem('identity', JSON.stringify(this.identity))
-
+              
             }else{
               this.status = 'error'
             }
@@ -59,6 +103,6 @@ export class UserEditComponent implements OnInit {
             console.log(<any>error)
        }      
     )
-}
+  }
 
 }

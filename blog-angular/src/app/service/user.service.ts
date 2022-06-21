@@ -40,7 +40,7 @@ export class userServiceProvider {
 
     }
 
-    update( token: any , user: any): Observable<any>{
+    update(token: any , user: any): Observable<any>{
         let json = JSON.stringify(user)
         let params = "json=" + json
 
@@ -52,26 +52,26 @@ export class userServiceProvider {
     }
 
     getIdentity(){
-        let identity = JSON.parse(localStorage.getItem('identity')||"{}")
+        let identity = JSON.parse(localStorage.getItem('identity') || "{}")
         
         if(identity && identity != "undefined"){
             this.identity = identity
         }else{
-           this.identity = null
+            this.identity = null
         }
 
         return this.identity
     }
 
     getToken(){
-        let token = localStorage.getItem('token')
+        let token = JSON.stringify(localStorage.getItem('token'))
         
         if(token && token != "undefined"){
             this.token = token
         }else{
-           this.token = null
+            this.token = null
         }
-
-        return this.token
+        return this.token 
+        
     }
 }

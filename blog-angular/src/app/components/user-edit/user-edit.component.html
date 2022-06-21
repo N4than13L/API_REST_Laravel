@@ -44,13 +44,17 @@
         </div>
 
         <div class="form-group">
-            <label for="Description">Descripción:</label>
-            <textarea type="text"  class="form-control"></textarea>          
+            <label for="description">Descripción:</label>
+            <textarea [froalaEditor]  class="form-control" name="description" 
+            class="form-control"
+            #description="ngModel"
+            [(ngModel)]="user.description" ></textarea>          
         </div>
         
         <div class="form-group">
             <label for="avatar">Avatar:</label>
-            <input type="file" class="form-control" />
+            <angular-file-uploader
+            [config]="afuConfig"></angular-file-uploader>
         </div>
 
         <input type="submit" value="registro" class="btn btn-success" /> <!--  -->

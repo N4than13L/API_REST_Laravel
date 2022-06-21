@@ -146,14 +146,13 @@ class UserController extends Controller
 
             // Actualizar usuario en la DB.
             $user_update = User::where('id', $user->sub)->update($params_array);
-
             // Devolver con el resultado.
             
             $data = array(
                 'code' => 200,
                 'status' => 'success',
-                'user' => $user_update,
-                'change' => $user
+                'user' => $user,
+                'changes' => $params_array
             );
         }
         else{
@@ -236,5 +235,5 @@ class UserController extends Controller
         }
         return response()->json($data, $data['code']);
     }
-    
+
 }
