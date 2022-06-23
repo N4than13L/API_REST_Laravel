@@ -56,6 +56,7 @@ export class userServiceProvider {
         
         if(identity && identity != "undefined"){
             this.identity = identity
+            // console.log(localStorage.getItem('identity'))
         }else{
             this.identity = null
         }
@@ -64,7 +65,7 @@ export class userServiceProvider {
     }
 
     getToken(){
-        let token = JSON.stringify(localStorage.getItem('token'))
+        let token = localStorage.getItem('token')
         
         if(token && token != "undefined"){
             this.token = token

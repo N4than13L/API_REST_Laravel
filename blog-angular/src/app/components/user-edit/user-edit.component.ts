@@ -17,14 +17,15 @@ export class UserEditComponent implements OnInit {
   public token: any
   public identity: any
   public status: any 
+  public resetVar = true
+  public url: any
 
   public afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.png, .jpeg, .gif",
     maxSize: "50",
     uploadAPI:  {
-      url: global + "user/upload",
-      method:"POST",
+    url: global.url + "user/upload",
       headers: {
      "Authorization" : this._userService.getToken()
       },
@@ -32,9 +33,7 @@ export class UserEditComponent implements OnInit {
     theme: "attachPin",
     hideProgressBar: false,
     hideResetBtn: true,
-    hideSelectBtn: true,
-    fileNameIndex: true,
-    autoUpload: false,
+    hideSelectBtn: false,
     attachPinText: "sube tu foto de perfil"
   }
 
@@ -43,6 +42,7 @@ export class UserEditComponent implements OnInit {
     this.user = new User(1, '', '', 'ROLE-USER', '', '', '', '')
     this.identity = this._userService.getIdentity()
     this.token = this._userService.getToken()
+    this.url = global.url
   
 
   this.user = this.user
@@ -55,7 +55,6 @@ export class UserEditComponent implements OnInit {
       this.identity.description,
       this.identity.image
       )
-
    }
 
   ngOnInit(): void {
@@ -103,6 +102,12 @@ export class UserEditComponent implements OnInit {
             console.log(<any>error)
        }      
     )
+  }
+
+  avatarUpload(datos: any){
+    let data = JSON.parse(JSON.stringify(datos.response))
+    this.user.image = data.image  
+    console.log(datos.response) 
   }
 
 }

@@ -2,13 +2,13 @@
     <h1>{{title}}</h1>
     <p>Registrate para saber mas de tí</p>
 
-    <!-- <div class="alert alert-success" *ngIf="status == 'success'">
-        Has sido registrado con exito <a [routerLink]="['/login']">has Login aqui</a> 
+    <div class="alert alert-success" *ngIf="status == 'success'">
+       La informacion ha sido actualizada con exito 
     </div>
 
     <div class="alert alert-danger" *ngIf="status == 'error'">
-        error al registrar datos Incorrectos o no enviados. 
-    </div> -->
+        Error al actualizar la informacion incorrectos o no enviados. 
+    </div>
 
     <!-- Formulario de registro -->
     <form class="col-md-5 ml-0 pl-0"  #userEditForm="ngForm" (ngSubmit)=" onSubmit(userEditForm)"> <!---->
@@ -18,7 +18,7 @@
             #name="ngModel" [(ngModel)]="user.name" required />
 
             <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
-                La contrasena es requerida
+                El nombre es requerido.
             </small>
 
         </div>
@@ -29,7 +29,7 @@
             #surname="ngModel" [(ngModel)]="user.surname" required />
 
             <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
-                La contrasena es requerida
+                el apellido es requerido
             </small>
         </div>
 
@@ -46,19 +46,24 @@
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea [froalaEditor]  class="form-control" name="description" 
-            class="form-control"
-            #description="ngModel"
-            [(ngModel)]="user.description" ></textarea>          
+            class="form-control" #description="ngModel" [(ngModel)]="user.description" ></textarea>          
         </div>
         
         <div class="form-group">
-            <label for="avatar">Avatar:</label>
+            <label for="image">Avatar:</label>
+
+            <div *ngIf="identity && identity.image">
+                <img src="{{ url + user/avatar/ + identity.image}" />
+            </div>
+
             <angular-file-uploader
-            [config]="afuConfig"></angular-file-uploader>
+            [config]="afuConfig"
+            [resetUpload]=resetVar
+            (ApiResponse)="avatarUpload($event)">
+            </angular-file-uploader>
         </div>
 
-        <input type="submit" value="registro" class="btn btn-success" /> <!--  -->
-    
+        <input type="submit" value="registro" class="btn btn-success" />     
     </form>
 
 </div>

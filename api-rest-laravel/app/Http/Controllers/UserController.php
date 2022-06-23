@@ -39,9 +39,7 @@ class UserController extends Controller
                     'errors' => $validate->errors()
                 );
             }else{
-                //pasado correctamente
-                
-                 //Cifrado de contrasena
+                //pasado correctamente. Cifrado de contrasena
                 $pwd = hash('sha256', $params->password);
 
                 // crear usuario 
@@ -116,24 +114,23 @@ class UserController extends Controller
 
     public function update(Request $request){
         $token = $request->header('Authorization');
-
         $jwtAuth = new \JwtAuth();
         $checkToken = $jwtAuth->checkToken($token, true);
 
-        // recoger los datos por POST.
+        // Recoger los datos por POST.
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
         if ($checkToken && !empty($params_array)){
 
-               //Sacar Usuario identificado.
+               // Sacar Usuario identificado.
                $user = $jwtAuth->checkToken($token, true);
 
-               //Validar datos.
+               // Validar datos.
                $validate = \Validator::make($params_array, [
                 'name' => 'required|alpha',
                 'surname' => 'required|alpha',
-                'email' => 'required|email|unique:userrs,'.$user->sub
+                'email' => 'required|email|unique:users,'.$user->sub
             ]);
 
             // Quitar los campos que no se actualizaran.
@@ -145,7 +142,7 @@ class UserController extends Controller
             unset($params_array['remeber_token']);
 
             // Actualizar usuario en la DB.
-            $user_update = User::where('id', $user->sub)->update($params_array);
+            $user = User::where('id', $user->sub)->update($params_array);
             // Devolver con el resultado.
             
             $data = array(
@@ -170,10 +167,10 @@ class UserController extends Controller
     public function upload(Request $request){
         //Recoger Datos.
         $image = $request->file('file0');
-
+        
         // Validar imagen.
         $validate = \Validator::make($request->all(),[
-            'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+            'file0|' => 'required|image|mimes:jpg,jpeg,png,gif'
         ]);
 
         //Guardar Imagen.
@@ -183,6 +180,7 @@ class UserController extends Controller
                 'status' => 'error',
                 'message' => 'Error al cargar la imagen',
             );
+            
         }
         else{
             $image_name = time().$image->getClientOriginalName();

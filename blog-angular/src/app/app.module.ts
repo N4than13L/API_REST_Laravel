@@ -28,8 +28,8 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
     routing,
     FormsModule,
     HttpClientModule,
-    FroalaEditorModule,
-    FroalaViewModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     AngularFileUploaderModule
   ],
   providers: [
