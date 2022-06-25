@@ -164,35 +164,36 @@ class UserController extends Controller
         
     }
 
-    public function upload(Request $request){
-        //Recoger Datos.
+    public function upload(Request $request) {
+        // Recoger los datos de la peticion
         $image = $request->file('file0');
-        
-        // Validar imagen.
-        $validate = \Validator::make($request->all(),[
-            'file0|' => 'required|image|mimes:jpg,jpeg,png,gif'
+ 
+        // Validacion de imagen
+        $validate = \Validator::make($request->all(), [
+            'file0' => 'required|image|mimes:jpg,jpeg,png,gif',
         ]);
-
-        //Guardar Imagen.
-        if (!$image || $validate->fails()){
+ 
+ 
+        // Guardar imagen
+        if (!$image || $validate->fails()) {
             $data = array(
-                'code' => 404,
                 'status' => 'error',
-                'message' => 'Error al cargar la imagen',
+                'code' => 400,
+                'message' => 'Error al subir la imagen'
             );
-            
-        }
-        else{
-            $image_name = time().$image->getClientOriginalName();
-            \Storage::disk('user')->put($image_name, \File::get($image)); 
-
+        } else {
+ 
+            $image_name = time() . $image->getClientOriginalName();
+            \Storage::disk('user')->put($image_name, \File::get($image));
+ 
             $data = array(
                 'code' => 200,
                 'status' => 'success',
-                'message' => $image_name,
+                'image' => $image_name
             );
         }
-
+ 
+        // Devolver resultado
         return response()->json($data, $data['code']);
     }
 
@@ -209,9 +210,8 @@ class UserController extends Controller
                 'status' => 'error',
                 'message' => 'Error imagen no existe',
             );
-
-        return response()->json($data, $data['code']);
         }
+        return response()->json($data, $data['code']);
 
     }
 

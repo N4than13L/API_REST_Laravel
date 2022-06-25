@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { userServiceProvider } from 'src/app/service/user.service';
-import { global } from '../../service/global/global';
+import { global } from 'src/app/service/global/global';
 
 
 @Component({
@@ -43,7 +43,6 @@ export class UserEditComponent implements OnInit {
     this.identity = this._userService.getIdentity()
     this.token = this._userService.getToken()
     this.url = global.url
-  
 
   this.user = this.user
     this.user = new User(
@@ -105,7 +104,7 @@ export class UserEditComponent implements OnInit {
   }
 
   avatarUpload(datos: any){
-    let data = JSON.parse(JSON.stringify(datos.response))
+    let data = JSON.parse(datos.response)
     this.user.image = data.image  
     console.log(datos.response) 
   }
