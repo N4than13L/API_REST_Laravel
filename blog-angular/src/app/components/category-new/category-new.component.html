@@ -1,1 +1,14 @@
-<p>category-new works!</p>
+<h2>{{title}}</h2>
+<p>Crea una nueva categoria.</p>
+
+<form #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)" class="col-md-5">
+    <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" class="form-control" 
+        name="name" #name="ngModel" [(ngModel)]="category.name" required/>
+        <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+            Error 
+        </small>
+    </div>
+    <input type="submit" value="Guardar" class="btn btn-success" [disabled]="categoryForm.invalid">
+</form>
