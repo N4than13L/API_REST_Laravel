@@ -33,7 +33,7 @@
         {{identity.name + ' ' + identity.surname }}
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">crear entrada</a>
+        <a class="dropdown-item" [routerLink]="['/crear-entrada']">crear entrada</a>
         <a class="dropdown-item" [routerLink]="['/crear-categoria']">crear categoria</a>
         <a class="dropdown-item" href="#" >Mi perfil</a>
         <a class="dropdown-item" [routerLink]="['/userEdit']">Ajustes</a>
