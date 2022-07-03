@@ -22,7 +22,7 @@ export class UserEditComponent implements OnInit {
 
   public afuConfig = {
     multiple: false,
-    formatsAllowed: ".jpg,.png, .jpeg, .gif",
+    formatsAllowed: ".jpg, .png, .jpeg, .gif",
     maxSize: "50",
     uploadAPI:  {
     url: global.url + "user/upload",
@@ -105,8 +105,7 @@ export class UserEditComponent implements OnInit {
 
   avatarUpload(datos: any){
     let data = JSON.parse(datos.response)
-    this.user.image = data.image  
-    console.log(datos.response) 
+    this.user.image = data.image   
   }
 
 }

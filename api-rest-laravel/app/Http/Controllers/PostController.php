@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Post;
 use App\Helpers\JwtAuth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+
 
 class PostController extends Controller
 {
@@ -190,34 +194,36 @@ class PostController extends Controller
     }
 
     public function upload(Request $request){
-        // Recoge la imagen.
+        //Recoger los datos de la peticion
         $image = $request->file('file0');
-
-        // Validar la imagen.
-        $validate = \Validator::make($request->all(), [
-            'title' => 'required|image|mimes: jpg, jpeg, png, gif'
+ 
+        //Validation de la imagen 
+        $validate = Validator::make($request->all(),[
+            'file0'=> ['required','mimes:jpg,jpeg,png,gif']
         ]);
-
-        // Guarfar la imagen.
-        if (!$image || $validate->fails()){
+ 
+        //Guardar imagen
+        if(!$image || $validate->fails()){
             $data = array(
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No se pudo subir la imagen.'
-            ); 
-
+                'code' => 400,
+                'status' =>'error',
+                'message' =>'Error al subir imagen'
+            );
+ 
+        }else{
             $image_name = time().$image->getClientOriginalName();
-            \Storage::disk('images')->put($image_name, \File::get($image));
-
+            Storage::disk('images')->put($image_name, File::get($image));
             $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'image' => $image_name
-            ); 
+                'code'=>200,
+                'status' =>'success',
+                'image' =>$image_name
+            );
         }
-
-        return response()->json($data, $data['code']);
+ 
+        //Devolver el resultado
+        return response()->json($data,$data['code']);
     }
+   
 
     public function getImage($filename){
         // Comprobar si existe el fichero.

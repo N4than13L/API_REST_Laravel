@@ -19,7 +19,7 @@ class ApiAuthMiddleware
         $jwtAuth = new \JwtAuth();
         $checkToken = $jwtAuth->checkToken($token, true);
 
-        if ($checkToken){
+        if ($checkToken && !empty($checkToken)){
             return $next($request);
         }else{
             $data = array(

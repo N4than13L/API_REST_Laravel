@@ -58,10 +58,10 @@ Route::resource('api/category', 'CategoryController');
 
 //Rutas para colocar los POSTS.
 Route::resource('api/post', 'PostController');
-Route::post('/api/user/upload', 'PostController@upload');
-Route::get('/api/user/avatar/{filename}', 'PostController@getImage');
+Route::post('/api/post/upload', 'PostController@upload');
+Route::get('/api/post/image/{filename}', 'PostController@getImage');
 
-//Retornar los posts por usuario y categoria,
+//Retornar los posts por usuario y categoria.
 Route::get('/api/post/category/{id}', 'PostController@getPostByCategory');
 Route::get('/api/post/user/{id}', 'PostController@getPostByUser');
 

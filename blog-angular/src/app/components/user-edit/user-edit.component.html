@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <h1>{{title}}</h1>
-    <p>Registrate para saber mas de tí</p>
+    <p>Edita tu información en este apartado.</p>
 
     <div class="alert alert-success" *ngIf="status == 'success'">
        La informacion ha sido actualizada con exito 
@@ -52,10 +52,10 @@
         <div class="form-group">
             <label for="image">Avatar:</label>
 
-           <!-- <div *ngIf="identity && identity.image">
-                <img src="{{url + 'user/avatar/' + identity.image}" />
-           </div> -->
-
+           <div class="imagen" *ngIf="identity && identity.image">
+                <img src="{{url + 'user/avatar/' + identity.image}} " />
+           </div>
+           <br/>
             <angular-file-uploader
             [config]="afuConfig"
             [resetUpload]=resetVar

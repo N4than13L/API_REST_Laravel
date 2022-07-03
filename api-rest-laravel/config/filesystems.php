@@ -55,16 +55,16 @@ return [
             'visibility' => 'public',
         ],
 
-        'user' => [
+        'images' => [
             'driver' => 'local',
-            'root' => storage_path('app/user'),
+            'root' => storage_path('app/images'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
-        'images' => [
+        'user' => [
             'driver' => 'local',
-            'root' => storage_path('app/images'),
+            'root' => storage_path('app/user'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { userServiceProvider } from './service/user.service';
 import { CategoryServiceProvider } from './service/category.service';
+import { global } from './service/global/global';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,12 @@ export class AppComponent implements OnInit, DoCheck {
   public identity: any
   public token: any
   public categories: any 
+  public url: string
 
 
   constructor(public _userService: userServiceProvider, private _categoryServiceProvider: CategoryServiceProvider){
     this.loginUser()
+    this.url = global.url
   }
 
   ngOnInit() {

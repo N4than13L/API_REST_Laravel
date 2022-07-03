@@ -178,12 +178,12 @@ class UserController extends Controller
         if (!$image || $validate->fails()) {
             $data = array(
                 'status' => 'error',
-                'code' => 400,
+                'code' => 404,
                 'message' => 'Error al subir la imagen'
             );
-        } else {
+        } else{
  
-            $image_name = time() . $image->getClientOriginalName();
+            $image_name = time().$image->getClientOriginalName();
             \Storage::disk('user')->put($image_name, \File::get($image));
  
             $data = array(
