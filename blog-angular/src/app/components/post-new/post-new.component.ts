@@ -46,6 +46,7 @@ export class PostNewComponent implements OnInit {
     private _postServiceProvider: PostServiceProvider,
     private _route: ActivatedRoute,
     private _router: Router ) { 
+
     this.title = "Crear una nueva entrada"
     this.identity = this._userService.getIdentity()
     this.token = this._userService.getToken()
@@ -55,7 +56,7 @@ export class PostNewComponent implements OnInit {
   ngOnInit(): void {
     this.getCaterory()
     this.post = new Post(1, this.identity.sub, 1, '','', '', null)
-    // console.log(this.post)
+    console.log(this.post)
   }
 
   getCaterory(){
@@ -78,7 +79,21 @@ export class PostNewComponent implements OnInit {
   }
 
   onSubmit(info: any){
-    console.log(this._postServiceProvider.testing())
+    this._postServiceProvider.create(this.token, this.post).subscribe(
+      response =>{
+        if(response.status == "success"){
+          this.post = response.post
+          this.status = "success"
+          this._router.navigate(['/inicio'])
+        }else{
+          this.status = "error"
+        }
+      },
+      error =>{
+        this.status = "error"
+        console.log(<any>error)
+      }
+    )
   }
 
 }

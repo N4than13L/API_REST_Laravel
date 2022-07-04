@@ -1,2 +1,11 @@
-<h1>{{title}}</h1>
-<p>home works!</p>
+<div class="conainer-fluid" *ngIf="posts">
+    <h1>{{title}}</h1>
+
+    <div class="card-columns">
+        <article class="card" *ngFor="let post of posts">
+            {{post.title}}
+        </article>
+    </div>
+</div>
+
+

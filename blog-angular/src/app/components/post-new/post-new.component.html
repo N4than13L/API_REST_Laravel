@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <h1>{{title}}</h1>
 
-    <form class="col-md-5 ml-0 pl-0" #postNew="ngForm" (onsubmit)="onSubmit(postNew)">
+    <form class="col-md-5 ml-0 pl-0" #postNew="ngForm" (ngSubmit)="onSubmit(postNew)">
         <div class="form-group">
             <label for="title">titulo</label>
             <input type="text" name="title" #titulo="ngModel" [(ngModel)]="post.title" 
