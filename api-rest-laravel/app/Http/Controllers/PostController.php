@@ -34,7 +34,8 @@ class PostController extends Controller
     }
 
     public function show($id){
-        $post = Post::find($id);
+        $post = Post::find($id)->load('category')
+                                ->load('user');
 
         if (is_object($post)) {
             $data = [

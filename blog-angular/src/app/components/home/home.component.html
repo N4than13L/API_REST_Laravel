@@ -1,10 +1,37 @@
-<div class="conainer-fluid" *ngIf="posts">
+<div class="conainer-fluid  m-3 ">
     <h1>{{title}}</h1>
-
+ 
     <div class="card-columns">
-        <article class="card" *ngFor="let post of posts">
-            {{post.title}}
+        <article class="card-header" *ngFor="let post of posts">
+            <h3>
+                <a [routerLink]="['/detalle-entrada', post.id]" >{{post.title}} </a>
+            </h3>
+            <div class="card-body">
+                <div class="post-image w-100" *ngIf="post.image">
+                    <img src="{{url + 'post/image/' + post.image}}" class="w-100" />
+                </div>    
+            </div>
+
+            <div class="card-body">
+                <div class="post-image w-100" *ngIf="!post.image">
+                    <img src="https://via.placeholder.com/300" class="w-100" />
+                </div>
+                <div class="post-buttons mt3">
+                    <a [routerLink]="['/detalle-entrada', post.id]" class="btn btn-success ml-2 mt-2">Leer</a>
+                    <span *ngIf="identity && identity.sub == post.user_id">
+                        <a [routerLink]="['/editar-entrada/:id']" class="btn btn-warning ml-2 mt-2">Editar</a>
+                        <a [routerLink]="['/inicio']" class="btn btn-danger ml-2 mt-2">Eliminar</a>
+    
+                    </span>
+                </div>
+            
+            </div>
+
+         
+
         </article>
+
+        
     </div>
 </div>
 

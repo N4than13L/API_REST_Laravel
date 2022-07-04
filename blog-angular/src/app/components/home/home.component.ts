@@ -2,23 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post"
 import { global } from 'src/app/service/global/global';
 import { PostServiceProvider } from 'src/app/service/post.service';
+import { userServiceProvider } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [PostServiceProvider]
+  providers: [PostServiceProvider, userServiceProvider]
 })
+
 export class HomeComponent implements OnInit {
   public title: string
   public status: any
-  public posts: Post[]
+  public posts: Array<Post>
   public url: string
-
-  constructor(private _postService: PostServiceProvider) {
+  public identity: any
+  public token: any
+  
+  constructor(private _postService: PostServiceProvider,
+    private _userServe: userServiceProvider) {
     this.title = "Pagina de inicio"
     this.url = global.url
     this.posts = []
+    this.identity = this._userServe.getIdentity()
+    this.token = this._userServe.getToken()
    }
 
   ngOnInit(): void {
@@ -29,11 +36,13 @@ export class HomeComponent implements OnInit {
     this._postService.getPosts().subscribe(
       response => {
         if (response.status == "success"){
-          this.posts = response.posts
+          this.posts = response.post
+          this.status = "success"
           console.log(this.posts)
         }
       },
       error => {
+        this.status = "error"
         console.log(<any>error)
       }
     )
