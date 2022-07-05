@@ -138,10 +138,11 @@ class PostController extends Controller
 
             $user = $this->getIdentity($request);
             
-            $post = Post::where('id', $id)->where('user_id', $user->sub)->first();
+            $post = Post::where('id', $id)
+            ->where('user_id', $user->sub)->first();
 
             if(!empty($post) && is_object($post)){
-                $post = Post::update($params_array);
+                $post->update($params_array);
 
                  // Devolver algo.
                 $data = array(

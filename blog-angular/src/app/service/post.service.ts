@@ -44,6 +44,12 @@ export class PostServiceProvider {
                                 .set("Authorization", token)
 
         return this._http.put(this.url + "post/" + id, params, {headers: headers})
+    }
 
+    delete(token: any, id: any){
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                .set("Authorization", token)
+
+        return this._http.delete(this.url + "post/" + id, {headers: headers})                       
     }
 }
