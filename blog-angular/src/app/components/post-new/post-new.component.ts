@@ -60,7 +60,7 @@ export class PostNewComponent implements OnInit {
   }
 
   getCaterory(){
-    this._categoryServiceProvider.getCategory().subscribe(
+    this._categoryServiceProvider.getCategories().subscribe(
       response =>{
         if(response.status == "success"){
           this.categories = response.categories

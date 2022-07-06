@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   getCategory(){
-    this._categoryServiceProvider.getCategory().subscribe(
+    this._categoryServiceProvider.getCategories().subscribe(
       response =>{
         if (response.status == "success") {
           this.categories = response.categories

@@ -25,10 +25,18 @@ export class CategoryServiceProvider {
         return this._http.post(this.url + 'category', params, {headers: headers})
     }
 
-    getCategory():Observable<any>{
+    getCategories():Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        return this._http.get(this.url + 'category', {headers: headers})
-        
+        return this._http.get(this.url + 'category', {headers: headers})   
+    }
+
+    getCategory(id:any):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        return this._http.get(this.url + 'category/' + id, {headers: headers})   
+    }
+    getPosts(id:any):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        return this._http.get(this.url + 'post/category/' + id, {headers: headers})   
     }
 
 }
