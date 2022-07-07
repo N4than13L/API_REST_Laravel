@@ -32,7 +32,7 @@ class CategoryController extends Controller
                 'category' => $category
             ];
 
-            var_dump($id);
+            
         }else{
             $data = [
                 'code' => 404,

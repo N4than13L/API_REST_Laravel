@@ -1,8 +1,22 @@
+<div class="col-md-5 mt-3" *ngIf="!post">
+    posts no existentes 
+</div>
+
 <div class="col-md-5 mt-3" *ngIf="post">
     <h1>{{post.title}}</h1>
 
     <hr/>
     <p [innerHTML]="post.content"></p>
     <hr/>
+    <div class="card-body">
+        <div class="post-image w-100" *ngIf="post.image">
+            <img src="{{url + 'post/image/' + post.image}}" class="w-100" />
+        </div>    
+    </div>
+
+    <div class="card-body">
+        <div class="post-image w-100" *ngIf="!post.image">
+            <img src="https://via.placeholder.com/300" class="w-100" />
+    </div>
 
 </div>

@@ -38,7 +38,7 @@ export class PostNewComponent implements OnInit {
     hideProgressBar: false,
     hideResetBtn: true,
     hideSelectBtn: false,
-    attachPinText: "sube tu foto de perfil"
+    attachPinText: "sube imagen para el post"
   }
 
   constructor(private _userService: userServiceProvider, 

@@ -1,7 +1,7 @@
 <div class="conainer-fluid  m-3 ">
     <h1>{{title}}</h1>
  
-    <div class="card-columns">
+    <div class="card-flex">
         <article class="card-header" *ngFor="let post of posts">
             <h3>
                 <a [routerLink]="['/detalle-entrada', post.id]" >{{post.title}} </a>
@@ -15,14 +15,14 @@
             <div class="card-body">
                 <div class="post-image w-100" *ngIf="!post.image">
                     <img src="https://via.placeholder.com/300" class="w-100" />
-                </div>
+            </div>
                 <div class="post-buttons mt3">
                     <a [routerLink]="['/detalle-entrada', post.id]" class="btn btn-success ml-2 mt-2">Leer</a>
                     <span *ngIf="identity && identity.sub == post.user_id">
                         <a [routerLink]="['/editar-entrada', post.id]" class="btn btn-warning ml-2 mt-2">Editar</a>
                         
                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-danger ml-2 mt-2" data-toggle="modal" data-target="#exampleModal">
                             Eliminar Post
                         </button>
   
