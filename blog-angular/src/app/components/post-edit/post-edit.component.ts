@@ -22,6 +22,8 @@ export class PostEditComponent implements OnInit {
   public categories: any
   public status: any
   public resetVar: any
+  public url: any
+  public is_edit: boolean
 
   public afuConfig = {
     multiple: false,
@@ -45,10 +47,11 @@ export class PostEditComponent implements OnInit {
     private _postServiceProvider: PostServiceProvider,
     private _route: ActivatedRoute,
     private _router: Router ) { 
-    this.title = "Crear una nueva entrada"
-    
+    this.title = "Editar entrada"
+      this.url = global.url
     this.identity = this._userService.getIdentity()
     this.token = this._userService.getToken()
+    this.is_edit = true
   }
 
   ngOnInit(): void {
@@ -106,6 +109,10 @@ export class PostEditComponent implements OnInit {
             if(response.status == "success"){
               this.post = response.post
               console.log(this.post)
+
+              if(this.post.user_id != this.identity.sub){
+                this._router.navigate(['/inicio'])
+              }
             }
             else{
               this._router.navigate(['/inicio'])
