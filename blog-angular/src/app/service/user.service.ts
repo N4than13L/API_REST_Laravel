@@ -75,4 +75,14 @@ export class userServiceProvider {
         return this.token 
         
     }
+
+    getPosts(id: any): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        return this._http.get(this.url + "post/user/" + id, {headers: headers})
+    }
+
+    UserDetail(id: any): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        return this._http.get(this.url + "user/detail/" + id, {headers: headers})
+    }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { userServiceProvider } from './service/user.service';
-import { CategoryServiceProvider } from './service/category.service';
-import { global } from './service/global/global';
+import { Component, OnInit, DoCheck } from '@angular/core'
+import { userServiceProvider } from './service/user.service'
+import { CategoryServiceProvider } from './service/category.service'
+import { global } from './service/global/global'
 
 @Component({
   selector: 'app-root',

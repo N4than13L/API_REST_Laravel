@@ -40,7 +40,7 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" [routerLink]="['/crear-entrada']">crear entrada</a>
         <a class="dropdown-item" [routerLink]="['/crear-categoria']">crear categoria</a>
-        <a class="dropdown-item" [routerLink]="['/userEdit']">Mi perfil</a>
+        <a class="dropdown-item" [routerLink]="['/perfil', identity.sub]">Mi perfil</a>
         <a class="dropdown-item" [routerLink]="['/userEdit']">Ajustes</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" [routerLink]="['/logout/1']">cerrar cesión</a>
