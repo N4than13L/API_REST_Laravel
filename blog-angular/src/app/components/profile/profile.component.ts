@@ -4,7 +4,7 @@ import { CategoryServiceProvider } from '../../service/category.service'
 import { global } from '../../service/global/global'
 import { Post } from 'src/app/models/post'
 import { User } from 'src/app/models/user'
-import {Router, ActivatedRoute, Params} from "@angular/router"
+import { Router, ActivatedRoute, Params} from "@angular/router"
 import { PostServiceProvider } from 'src/app/service/post.service'
 
 
@@ -17,39 +17,43 @@ import { PostServiceProvider } from 'src/app/service/post.service'
 })
 
 export class ProfileComponent implements OnInit {
-
-  public title = 'Blog-angular';
   public identity: any
   public token: any
   public categories: any 
   public url: string
   public status: any
-  public posts: Post | any
-  public userId: any
-  public user: User | any
+  public posts: Array<Post> | any
+  public userId: number 
+  public user: User | boolean = true
 
   constructor(public _userService: userServiceProvider, 
     private _categoryServiceProvider: CategoryServiceProvider,
     private _route: ActivatedRoute,
     private _router: Router, private _postService: PostServiceProvider) {
-    this.url = global.url
+      this.user = new User(36,"","","", "", "", "", "")
+      this.userId = this.user.id
+      this.identity = this._userService.getIdentity()
+      this.token = this._userService.getToken()      
+      this.url = global.url
+      
    }
 
   ngOnInit(): void {
-    this.getUser(this.userId)
-    this.getParams()
+    this.getProfile()
   }
 
-  getParams(){
+  getProfile(){
+    // Sacar el id del post
     this._route.params.subscribe(params => {
-      let id = +params['id']
-      this.getPosts(this.userId)
+      let userId = +params['id']
+        this.getUser(userId)
+        this.getPosts(userId)
+        // console.log(userId)
     })
-    
   }
 
-  getUser(userId: any){
-    this._userService.UserDetail(this.userId).subscribe(
+  getUser(userId: number){
+    this._userService.getUser(this.userId).subscribe(
       response =>{
         if (response.status == "success"){
           this.user = response.user
@@ -66,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this._userService.getPosts(this.userId).subscribe(
       response => {
         if (response.status == "success"){
-          this.posts = response.post
+          this.posts = response.posts
           this.status = "success"
           console.log(this.posts)
         }
@@ -81,7 +85,7 @@ export class ProfileComponent implements OnInit {
   deletePost(id:any){
     this._postService.delete(this.token, id).subscribe(
       response =>{
-        this.getPosts(this.userId)
+        this.getProfile()
       },
       error =>{
         console.log(<any>error)

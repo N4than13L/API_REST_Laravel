@@ -18,6 +18,7 @@ export class PostDetailComponent implements OnInit {
   public user: any
   public url: any
   public identity: any
+  public token :any
 
   constructor(
     private _postService: PostServiceProvider,
@@ -28,6 +29,7 @@ export class PostDetailComponent implements OnInit {
     this.post = new Post(1,1,1, "", "", "", [])
     this.url = global.url
     this.identity = this._userService.getIdentity()
+    this.token = this._userService.getToken()
   }
 
   ngOnInit(): void {
