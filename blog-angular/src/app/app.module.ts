@@ -21,6 +21,7 @@ import { CategoryDetailComponent } from './components/category-detail/category-d
 import { IdentityGuard } from './service/identity.guard';
 import { userServiceProvider } from './service/user.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PostListDetailComponent } from './components/post-list-detail/post-list-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     PostDetailComponent,
     PostEditComponent,
     CategoryDetailComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostListDetailComponent,
+    
+   
   ],
   imports: [
     BrowserModule,
